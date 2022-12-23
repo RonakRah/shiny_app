@@ -22,7 +22,7 @@ dashboardPage(
       # 2- item in menu
       menuItem(text = "Visualization", tabName = "Visual", icon = icon("chart-line")),
       # 3- item in menu
-      menuItem(text = "Color Theme Map", tabName = "Map", icon = icon("map"))
+      menuItem(text = "Color Theme Map", tabName = "Choroplet-Map", icon = icon("map"))
     )
   
   ),
@@ -47,7 +47,10 @@ dashboardPage(
               tabPanel(title ="Distribution"), # second tab box
               tabPanel(title ="Correlation Matrix"), # third tab box
               tabPanel(title =" Arrest types & Urban Population Relationship"), # fourth tab box
-              ))
+              )),
+      # items for third menu tab
+      tabItem(tabName = "Choroplet-Map", box(h2("here is the place for map")))
+      
       ))
   
   
