@@ -20,9 +20,9 @@ dashboardPage(
       # 1- item in menu
       menuItem(text="Dataset", tabName = "dataset" , icon=icon("database")),
       # 2- item in menu
-      menuItem(text = "Visualization", tabName = "Visualization", icon = icon("chart-line")),
+      menuItem(text = "Visualization", tabName = "Visual", icon = icon("chart-line")),
       # 3- item in menu
-      menuItem(text = "Color Theme Map", tabName = "Choropleth-Map", icon = icon("map"))
+      menuItem(text = "Color Theme Map", tabName = "Map", icon = icon("map"))
     )
   
   ),
@@ -31,19 +31,24 @@ dashboardPage(
     tabItems(
       # items for first menu tab
       tabItem(tabName = "dataset",
-              #first tab box
-              tabBox(id="t1",width = 12,tabPanel("about",icon=icon("address-card")),
-              # second tab box
-              tabPanel("Data",icon = icon("table")),
-              tabPanel("Structure",icon=icon("uncharted")),
-              tabPanel("Summary Stats",icon=icon("chart-pie"))),
+              #defining tab boxes
+              tabBox(id="t1",width = 14,
+              tabPanel(title = "About",icon=icon("address-card")), #first tab box
+              tabPanel(title ="Data",icon = icon("table")),# second tab box
+              tabPanel(title ="Structure",icon=icon("uncharted")),# third tab box
+              tabPanel(title ="Summary Stats",icon=icon("chart-pie")) #fourth tab box
+              )),
               
-      
-      
-      
-      )
-   
+      # items for second menu tab
+      tabItem(tabName = "Visual",
+              #defining tab boxes
+              tabBox(id="t2", width=14, 
+              tabPanel(title ="Crime Trends in each State",value = "trends"),  # first tab box
+              tabPanel(title ="Distribution"), # second tab box
+              tabPanel(title ="Correlation Matrix"), # third tab box
+              tabPanel(title =" Arrest types & Urban Population Relationship"), # fourth tab box
+              ))
+      ))
   
   
-  )))
-)
+  ))
