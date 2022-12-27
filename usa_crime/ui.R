@@ -33,10 +33,19 @@ dashboardPage(
       tabItem(tabName = "dataset",
               #defining tab boxes
               tabBox(id="t1",width = 14,
-              tabPanel(title = "About",icon=icon("address-card")), #first tab box
-              tabPanel(title ="Data",icon = icon("table")),# second tab box
-              tabPanel(title ="Structure",icon=icon("uncharted")),# third tab box
-              tabPanel(title ="Summary Stats",icon=icon("chart-pie")) #fourth tab box
+              tabPanel(title = "About",icon=icon("address-card"),
+                column(width = 8, tags$img(src="crime_sc.jpeg", width =600 , height = 300,align = "center"),
+                       tags$br() , 
+                       tags$a("Photo by JUSTIN MCCARTHY on NEWS GALLUP"), align = "center",
+                
+                       tags$p( align = "center","This data set comes along with base R and contains statistics, in arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states in 1973. Also, given is the percent of the population living in urban areas.
+                              To use the dataset in R just use 'USArrests' . the format is a data frame with 50 observations on 4 variables.")
+                )
+              )
+              , #first tab box
+              tabPanel(title ="Data",icon = icon("table"),dataTableOutput("dataTable")),# second tab box
+              tabPanel(title ="Structure",icon=icon("uncharted"),verbatimTextOutput("structure")),# third tab box
+              tabPanel(title ="Summary Stats",icon=icon("chart-pie"),verbatimTextOutput("summary")) #fourth tab box
               )),
               
       # items for second menu tab
