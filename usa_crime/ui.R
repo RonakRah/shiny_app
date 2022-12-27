@@ -21,7 +21,7 @@ dashboardPage(
       menuItem(text="Dataset", tabName = "dataset" , icon=icon("database")),
       # 2- item in menu
       menuItem(text = "Visualization", tabName = "Visual", icon = icon("chart-line")),
-      selectInput(inputId ="crime_var1" , label = "Choose a Crime", choices = crimes , selected = "Rape" ),
+      selectInput(inputId ="var1" , label = "Choose a Crime", choices = crimes , selected = "Rape" ),
       # 3- item in menu
       menuItem(text = "Color Theme Map", tabName = "Choroplet-Map", icon = icon("map"))
     )
