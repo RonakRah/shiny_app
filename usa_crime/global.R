@@ -22,3 +22,8 @@ arrestData %>% summary()
 # head of the data
 arrestData %>% head()
 
+# row names to obj
+statesName =rownames(arrestData)
+
+# adding a col to the dataset as statesName
+arrestData %>% mutate(statesName = statesName)
