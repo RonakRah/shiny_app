@@ -36,7 +36,7 @@ dashboardPage(
               tabPanel(title = "About",icon=icon("address-card"),fluidRow(
                 column(width = 8, tags$img(src="crime_sc.jpeg", width =600 , height = 300),
                        tags$br() , 
-                       tags$a("Photo by Campbell Jensen on Unsplash"), align = "center"),
+                       tags$a("Photo by Tom Filip on News-Ugo"), align = "center"),
                 column(width = 4, tags$br() ,
                        tags$p("This data set comes along with base R and contains statistics, in arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states in 1973.
                               Also, given is the percent of the population living in urban areas. This dataset
