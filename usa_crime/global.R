@@ -26,4 +26,27 @@ arrestData %>% head()
 statesName =rownames(arrestData)
 
 # adding a col to the dataset as statesName
-arrestData %>% mutate(statesName = statesName)
+arrData <- arrestData %>% mutate(stateName = statesName)
+
+#-------------------------| plot Section | ------------------------
+
+# creating hist
+his = arrestData %>%
+  plot_ly() %>%
+  add_histogram(~Rape) %>%
+  layout(xaxis = list(title = "Rape"))
+
+# creating box plot
+box = arrestData %>%
+  plot_ly() %>%
+  add_boxplot (~Rape) %>%
+  layout(yaxis = list(showticklabels = F))
+
+# stacking both plots
+subplot(his , box , nrows = 2)  %>%
+  layout(title = "Distribution chart - Histogram and Boxplot" ,
+         yaxis = list(title = " Frequency")) %>% hide_legend()
+# creating the crime selecttions
+crimes = arrData %>%
+  select( - stateName) %>%
+  names()
