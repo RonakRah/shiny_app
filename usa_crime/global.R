@@ -10,6 +10,7 @@ library(ggcorrplot)
 library(shinycssloaders) 
 library(ggplot2) 
 
+#---------------------------|Dataset Section|-----------------
 # create data for the app
 arrestData <- USArrests
 
@@ -26,4 +27,20 @@ arrestData %>% head()
 statesName =rownames(arrestData)
 
 # adding a col to the dataset as statesName
-arrestData %>% mutate(statesName = statesName)
+arrestData=arrestData %>% mutate(stateName = statesName)
+
+#---------------------------|Visualization Section|-----------------
+# creating histogram of the data
+histo = arrestData %>% plot_ly() %>% add_histogram(~Assault)
+
+# creating boxplot
+boxPlot = arrestData %>% plot_ly() %>% add_boxplot(~Assault)
+
+# plots
+subplot(histo,boxPlot,nrows = 2) %>% hide_legend() %>% layout(
+  title = "Distribution Chart - Histogram and Boxplot",
+  yaxis = list(title="Frequency")
+)
+
+# select input choices without states
+celectcrime = arrestData %>% select(-"stateName") %>% names()
