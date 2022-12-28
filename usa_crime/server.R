@@ -71,5 +71,30 @@ function(input,output,session){
              yaxis = list(title = paste(input$var2, "Arrests per 100,000 residents") ))
   })
   
+  # Table of 5 top states with higest arrest
+  output$highest <- renderTable({
+    # top states  max
+    top = arrData %>% 
+      select(stateName, input$varT) %>% 
+      arrange(desc(get(input$varT))) %>% 
+      head()
+  })
+  # Table of 5 low states with lowest arrest
+  output$lowest <- renderTable({
+    low = arrData %>% 
+      select(stateName, input$varT) %>% 
+      arrange(get(input$varT)) %>% 
+      head()
+    
+  
+    
+  })
+  # header of boxes
+  output$headingT <- renderText(
+    paste(" First 6 top states with the highest rate of", input$varT)
+  )
+  output$headingL <- renderText(
+    paste(" First 6 top states with the Lowest rate of", input$varT)
+  )
   
 }
