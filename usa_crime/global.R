@@ -29,12 +29,22 @@ statesName =rownames(arrestData)
 # adding a col to the dataset as statesName
 arrestData=arrestData %>% mutate(stateName = statesName)
 
-#---------------------------|Visualization Section|-----------------
-# creating histogram of the data
-histo = arrestData %>% plot_ly() %>% add_histogram(~Assault)
+#-------------------------| correlation | ------------------------
 
-# creating boxplot
-boxPlot = arrestData %>% plot_ly() %>% add_boxplot(~Assault)
+state_in_map <- map_data("state")
+lowecase = arrData %>% 
+  mutate(State = tolower(stateName))
+
+## Add the lat, long and other info needed 
+merged_data =right_join(lowecase, state_in_map,  by=c("State" = "region"))
+
+#  Create a dataframe out of  State Abreviations and center locations of each states 
+state_center = data.frame(abb = state.abb, stname=tolower(state.name), x=state.center$x, y=state.center$y)
+
+# Join the state abbreviations and center location to the dataset for each of the observations in the merged dataset
+joined = left_join(merged_data, state_center, by=c("State" = "stname"))
+
+#-------------------------| plots | ------------------------
 
 # creating the crime selecttions
 crimes = arrData %>%
