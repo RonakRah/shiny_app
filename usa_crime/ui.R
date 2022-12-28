@@ -71,7 +71,7 @@ dashboardPage(
               )
                        ),  # first tab box
               tabPanel(title ="Distribution",plotlyOutput("histogramplot"),value = "dist"), # second tab box
-              tabPanel(title ="Correlation Matrix"), # third tab box
+              tabPanel(title ="Correlation Matrix", id="corr",plotlyOutput("corplot") ), # third tab box
               tabPanel(title =" Arrest types & Urban Population Relationship",plotlyOutput("scatter"),value="rel",
                        radioButtons(inputId ="method" , label = "Select The method" , choices = c("loess", "lm"), selected = "loess" , inline = TRUE)), # fourth tab box
               )),

@@ -97,4 +97,26 @@ function(input,output,session){
     paste(" First 6 top states with the Lowest rate of", input$varT)
   )
   
+  ## Correlation plot
+  output$corplot <- renderPlotly({
+    mydata <- arrData %>% 
+      select(-stateName)
+    
+    #  correlation matrix calculation
+    corr <- round(cor(mydata), 1)
+    
+    # Compute a matrix of correlation p-values
+    p.mat <- cor_pmat(mydata)
+    
+    corr_plot <- ggcorrplot(
+      corr, 
+      hc.order = TRUE, 
+      lab= TRUE,
+      outline.col = "white",
+      p.mat = p.mat
+    )
+    
+    ggplotly(corr_plot)
+    
+  })
 }
