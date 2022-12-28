@@ -59,7 +59,17 @@ dashboardPage(
       tabItem(tabName = "Visual",
               #defining tab boxes
               tabBox(id="t2", width=14, 
-              tabPanel(title ="Crime Trends in each State",value = "trends",plotlyOutput("barchart")),  # first tab box
+              tabPanel(title ="Crime Trends in each State",value = "trends",plotlyOutput("barchart"),
+                       fluidRow(tags$div(align="center",
+                                         box(tableOutput("highest"),
+                                                             title = textOutput("headingT") ,
+                                             collapsible = TRUE, status = "primary",  collapsed = TRUE, solidHeader = TRUE)),
+                                                                                                              tags$div(align="center", 
+                                                                                                                       box(tableOutput("lowest"), title = textOutput("headingL") ,
+                                                                                                                                           collapsible = TRUE, status = "primary",  collapsed = TRUE, solidHeader = TRUE))
+                                                                                                              
+              )
+                       ),  # first tab box
               tabPanel(title ="Distribution",plotlyOutput("histogramplot"),value = "dist"), # second tab box
               tabPanel(title ="Correlation Matrix"), # third tab box
               tabPanel(title =" Arrest types & Urban Population Relationship",plotlyOutput("scatter"),value="rel",

@@ -39,3 +39,6 @@ crimes = arrData %>%
 MAR = arrData %>% 
   select(-"stateName", -"UrbanPop") %>% 
   names()
+
+
+
