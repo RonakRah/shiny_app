@@ -36,11 +36,11 @@ histo = arrestData %>% plot_ly() %>% add_histogram(~Assault)
 # creating boxplot
 boxPlot = arrestData %>% plot_ly() %>% add_boxplot(~Assault)
 
-# plots
-subplot(histo,boxPlot,nrows = 2) %>% hide_legend() %>% layout(
-  title = "Distribution Chart - Histogram and Boxplot",
-  yaxis = list(title="Frequency")
-)
-
-# select input choices without states
-celectcrime = arrestData %>% select(-"stateName") %>% names()
+# creating the crime selecttions
+crimes = arrData %>%
+  select( - stateName) %>%
+  names()
+#creating the
+MAR = arrData %>% 
+  select(-"stateName", -"UrbanPop") %>% 
+  names()
