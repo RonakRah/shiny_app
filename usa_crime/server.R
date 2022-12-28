@@ -97,6 +97,32 @@ function(input,output,session){
     paste(" First 6 top states with the Lowest rate of", input$varT)
   )
   
+  # thematic map
+  output$thematicmap <- renderPlot({
+    joined %>% 
+      ggplot(aes(x=long, y=lat,fill=get(input$crimet) , group = group)) +
+      geom_polygon(color="black", size=0.4) +
+      scale_fill_gradient(low="#73A5C6", high="#001B3A", name = paste(input$crimet, "Arrest rate")) +
+      theme_void() +
+      labs(title = paste("Thematic map of", input$crimet , " Arrests per 100,000 residents by state")) +
+      theme(
+        plot.title = element_textbox_simple(face="bold", 
+                                            size=18,
+                                            halign=0.5),
+        
+        legend.position = c(0.2, 0.1),
+        legend.direction = "horizontal"
+        
+      ) +
+      geom_text(aes(x=x, y=y, label=abb), size = 4, color="white")
+    
+    
+    
+  })
+  
+  
+  
+  
   ## Correlation plot
   output$corplot <- renderPlotly({
     mydata <- arrData %>% 

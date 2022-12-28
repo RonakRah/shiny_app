@@ -76,7 +76,8 @@ dashboardPage(
                        radioButtons(inputId ="method" , label = "Select The method" , choices = c("loess", "lm"), selected = "loess" , inline = TRUE)), # fourth tab box
               )),
       # items for third menu tab
-      tabItem(tabName = "Choroplet-Map", box(h2("here is the place for map")))
+      tabItem(tabName = "Choroplet-Map", box(selectInput("crimet","Select type of Arrest ", choices = MAR, selected="Murder", width = 250),
+                                             withSpinner(plotOutput("thematicmap")),width=14))
       
       ))
   
