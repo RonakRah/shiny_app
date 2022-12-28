@@ -28,13 +28,13 @@ function(input,output,session){
   # -------------|plotting|-------------
   output$histogramplot <- renderPlotly({
     # creating hist
-    his = arrestData %>%
+    his = arrData %>%
       plot_ly() %>%
       add_histogram(~get(input$var1)) %>%
       layout(xaxis = list(title = paste(input$var1)))
     
     # creating box plot
-    box = arrestData %>%
+    box = arrData %>%
       plot_ly() %>%
       add_boxplot (~get(input$var1)) %>%
       layout(yaxis = list(showticklabels = F))
@@ -47,7 +47,7 @@ function(input,output,session){
   
   ### Scatter plot for finding the rel between vars 
   output$scatter <- renderPlotly({
-    scatterplot = arrestData %>% 
+    scatterplot = arrData %>% 
       ggplot(aes(x=get(input$varA), y=get(input$varB))) +
       geom_point() +
       geom_smooth(method=get(input$method)) +
@@ -60,5 +60,16 @@ function(input,output,session){
     ggplotly(scatterplot)
     
   })
+  
+  ### Bar Charts to show he trends
+  output$barchart <- renderPlotly({
+    arrData %>% 
+      plot_ly() %>% 
+      add_bars(x=~stateName, y=~get(input$varT)) %>% 
+      layout(title = paste("Statewise Arrests for", input$varT),
+             xaxis = list(title = "State Name"),
+             yaxis = list(title = paste(input$var2, "Arrests per 100,000 residents") ))
+  })
+  
   
 }

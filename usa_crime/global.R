@@ -35,3 +35,7 @@ arrData <- arrestData %>% mutate(stateName = statesName)
 crimes = arrData %>%
   select( - stateName) %>%
   names()
+#creating the
+MAR = arrData %>% 
+  select(-"stateName", -"UrbanPop") %>% 
+  names()

@@ -25,6 +25,8 @@ dashboardPage(
       
       conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'rel' ", selectInput(inputId = "varA" , label ="Select the X axis" , choices = crimes, selected = "Rape")), # fort scatter plot var A
       conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'rel' ", selectInput(inputId = "varB" , label ="Select the Y axis" , choices = crimes, selected = "Assault")), # fort scatter plot var B
+      
+      conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'trends' ", selectInput(inputId = "varT" , label ="Select the Arrest type" , choices = MAR)),
       # 3- item in menu
       menuItem(text = "Color Theme Map", tabName = "Choroplet-Map", icon = icon("map"))
     )
@@ -57,7 +59,7 @@ dashboardPage(
       tabItem(tabName = "Visual",
               #defining tab boxes
               tabBox(id="t2", width=14, 
-              tabPanel(title ="Crime Trends in each State",value = "trends"),  # first tab box
+              tabPanel(title ="Crime Trends in each State",value = "trends",plotlyOutput("barchart")),  # first tab box
               tabPanel(title ="Distribution",plotlyOutput("histogramplot"),value = "dist"), # second tab box
               tabPanel(title ="Correlation Matrix"), # third tab box
               tabPanel(title =" Arrest types & Urban Population Relationship",plotlyOutput("scatter"),value="rel",
