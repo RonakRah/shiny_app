@@ -40,9 +40,9 @@ function(input,output,session){
       layout(yaxis = list(showticklabels = F))
     
     # stacking both plots
-    subplot(his , box , nrows = 2)  %>%
+    subplot(box , his , nrows = 2)  %>%
       layout(title = "Distribution chart - Histogram and Boxplot" ,
-             yaxis = list(title = " Frequency")) %>% hide_legend()
+             yaxis = list(title = " Frequency"),xaxis = list(title = input$var1)) %>% hide_legend()
   })
   
   ### Scatter plot for finding the rel between vars 
