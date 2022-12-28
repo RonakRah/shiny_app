@@ -31,7 +31,7 @@ function(input,output,session){
     his = arrestData %>%
       plot_ly() %>%
       add_histogram(~get(input$var1)) %>%
-      layout(xaxis = list(title = input$var1))
+      layout(xaxis = list(title = paste(input$var1)))
     
     # creating box plot
     box = arrestData %>%
@@ -45,5 +45,20 @@ function(input,output,session){
              yaxis = list(title = " Frequency")) %>% hide_legend()
   })
   
+  ### Scatter plot for finding the rel between vars 
+  output$scatter <- renderPlotly({
+    scatterplot = arrestData %>% 
+      ggplot(aes(x=get(input$varA), y=get(input$varB))) +
+      geom_point() +
+      geom_smooth(method=get(input$method)) +
+      labs(title = paste("Relation between", input$varA , "and" , input$varB),
+           x = input$var3,
+           y = input$var4) +
+      theme(  plot.title = element_textbox_simple(size=10,
+                                                  halign=0.5))
+    # applied ggplot to make it interactive
+    ggplotly(scatterplot)
+    
+  })
   
 }
