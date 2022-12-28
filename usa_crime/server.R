@@ -3,6 +3,7 @@ library(shiny)
 library(DT)
 function(input,output,session){
   
+  
   # -------------|Structure|-------------
   output$structure <- renderPrint(
   # get the structure of the data
@@ -19,18 +20,23 @@ function(input,output,session){
   output$dataTable <- renderDataTable(
     arrestData
   )
+  
+  # creating the crime selecttions
+  crimes = arrData %>%
+    select( - stateName) %>%
+    names()
   # -------------|plotting|-------------
   output$histogramplot <- renderPlotly({
     # creating hist
     his = arrestData %>%
       plot_ly() %>%
-      add_histogram(~Rape) %>%
-      layout(xaxis = list(title = "Rape"))
+      add_histogram(~get(input$var1)) %>%
+      layout(xaxis = list(title = input$var1))
     
     # creating box plot
     box = arrestData %>%
       plot_ly() %>%
-      add_boxplot (~Rape) %>%
+      add_boxplot (~get(input$var1)) %>%
       layout(yaxis = list(showticklabels = F))
     
     # stacking both plots
