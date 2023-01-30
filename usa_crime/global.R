@@ -28,7 +28,7 @@ statesName =rownames(arrestData)
 
 # adding a col to the dataset as statesName
 arrestData=arrestData %>% mutate(stateName = statesName)
-
+rownames(arrestData)<- NULL
 #-------------------------| correlation | ------------------------
 
 state_in_map <- map_data("state")
