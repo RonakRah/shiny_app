@@ -22,19 +22,19 @@ function(input,output,session){
   )
   
   # creating the crime selecttions
-  crimes = arrData %>%
+  crimes = arrestData %>%
     select( - stateName) %>%
     names()
   # -------------|plotting|-------------
   output$histogramplot <- renderPlotly({
     # creating hist
-    his = arrData %>%
+    his = arrestData %>%
       plot_ly() %>%
       add_histogram(~get(input$var1)) %>%
       layout(xaxis = list(title = paste(input$var1)))
     
     # creating box plot
-    box = arrData %>%
+    box = arrestData %>%
       plot_ly() %>%
       add_boxplot (~get(input$var1)) %>%
       layout(yaxis = list(showticklabels = F))
@@ -47,7 +47,7 @@ function(input,output,session){
   
   ### Scatter plot for finding the rel between vars 
   output$scatter <- renderPlotly({
-    scatterplot = arrData %>% 
+    scatterplot = arrestData %>% 
       ggplot(aes(x=get(input$varA), y=get(input$varB))) +
       geom_point() +
       geom_smooth(method=get(input$method)) +
@@ -63,7 +63,7 @@ function(input,output,session){
   
   ### Bar Charts to show he trends
   output$barchart <- renderPlotly({
-    arrData %>% 
+    arrestData %>% 
       plot_ly() %>% 
       add_bars(x=~stateName, y=~get(input$varT)) %>% 
       layout(title = paste("Statewise Arrests for", input$varT),
@@ -74,14 +74,14 @@ function(input,output,session){
   # Table of 5 top states with higest arrest
   output$highest <- renderTable({
     # top states  max
-    top = arrData %>% 
+    top = arrestData %>% 
       select(stateName, input$varT) %>% 
       arrange(desc(get(input$varT))) %>% 
       head()
   })
   # Table of 5 low states with lowest arrest
   output$lowest <- renderTable({
-    low = arrData %>% 
+    low = arrestData %>% 
       select(stateName, input$varT) %>% 
       arrange(get(input$varT)) %>% 
       head()
@@ -125,7 +125,7 @@ function(input,output,session){
   
   ## Correlation plot
   output$corplot <- renderPlotly({
-    mydata <- arrData %>% 
+    mydata <- arrestData %>% 
       select(-stateName)
     
     #  correlation matrix calculation

@@ -32,7 +32,7 @@ arrestData=arrestData %>% mutate(stateName = statesName)
 #-------------------------| correlation | ------------------------
 
 state_in_map <- map_data("state")
-lowecase = arrData %>% 
+lowecase = arrestData %>% 
   mutate(State = tolower(stateName))
 
 ## Add the lat, long and other info needed 
@@ -47,11 +47,11 @@ joined = left_join(merged_data, state_center, by=c("State" = "stname"))
 #-------------------------| plots | ------------------------
 
 # creating the crime selecttions
-crimes = arrData %>%
+crimes = arrestData %>%
   select( - stateName) %>%
   names()
 #creating the
-MAR = arrData %>% 
+MAR = arrestData %>% 
   select(-"stateName", -"UrbanPop") %>% 
   names()
 
