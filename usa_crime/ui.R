@@ -28,7 +28,8 @@ dashboardPage(
       
       conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'trends' ", selectInput(inputId = "varT" , label ="Select the Arrest type" , choices = MAR)),
       # 3- item in menu
-      menuItem(text = "Color Theme Map", tabName = "Choroplet-Map", icon = icon("map"))
+      menuItem(text = "Color Theme Map", tabName = "Choroplet-Map", icon = icon("map")),
+      conditionalPanel("input.sidebar == 'Choroplet-Map'",selectInput("crimet","Select type of Arrest ", choices = MAR, selected="Murder", width = 250))
     )
   
   ),
@@ -76,7 +77,7 @@ dashboardPage(
                        radioButtons(inputId ="method" , label = "Select The method" , choices = c("loess", "lm"), selected = "loess" , inline = TRUE)), # fourth tab box
               )),
       # items for third menu tab
-      tabItem(tabName = "Choroplet-Map", box(selectInput("crimet","Select type of Arrest ", choices = MAR, selected="Murder", width = 250),
+      tabItem(tabName = "Choroplet-Map", box(
                                              withSpinner(plotOutput("thematicmap")),width=14))
       
       ))
