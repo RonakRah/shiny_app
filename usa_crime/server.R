@@ -23,7 +23,7 @@ function(input,output,session){
   
   # creating the crime selecttions
   crimes = arrestData %>%
-    select( - stateName) %>%
+    
     names()
   # -------------|plotting|-------------
   output$histogramplot <- renderPlotly({
@@ -64,25 +64,29 @@ function(input,output,session){
   ### Bar Charts to show he trends
   output$barchart <- renderPlotly({
     arrestData %>% 
+    # Create a temporary column 'rowNames' containing the row names of the data table
+      transform(rowNames = rownames(arrestData)) %>%
       plot_ly() %>% 
-      add_bars(x=~stateName, y=~get(input$arrestType)) %>% 
+     add_bars(x = ~rowNames, y = ~get(input$arrestType)) %>%  
       layout(title = paste("Statewise Arrests for", input$arrestType),
              xaxis = list(title = "State Name"),
-             yaxis = list(title = paste(input$var2, "Arrests per 100,000 residents") ))
+             yaxis = list(title = paste(input$var2, "Arrests per 100,000 residents")))
   })
   
   # Table of 5 top states with higest arrest
   output$highest <- renderTable({
     # top states  max
     top = arrestData %>% 
-      select(stateName, input$arrestType) %>% 
+      select( input$arrestType) %>% 
+      cbind(rowNames = rownames(arrestData), .) %>% 
       arrange(desc(get(input$arrestType))) %>% 
       head()
   })
   # Table of 5 low states with lowest arrest
   output$lowest <- renderTable({
     low = arrestData %>% 
-      select(stateName, input$arrestType) %>% 
+      select( input$arrestType) %>% 
+      cbind(rowNames = rownames(arrestData), .) %>% 
       arrange(get(input$arrestType)) %>% 
       head()
     
@@ -125,8 +129,8 @@ function(input,output,session){
   
   ## Correlation plot
   output$corplot <- renderPlotly({
-    mydata <- arrestData %>% 
-      select(-stateName)
+    mydata <- arrestData  
+      
     
     #  correlation matrix calculation
     corr <- round(cor(mydata), 1)
