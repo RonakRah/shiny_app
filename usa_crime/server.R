@@ -65,8 +65,8 @@ function(input,output,session){
   output$barchart <- renderPlotly({
     arrestData %>% 
       plot_ly() %>% 
-      add_bars(x=~stateName, y=~get(input$varT)) %>% 
-      layout(title = paste("Statewise Arrests for", input$varT),
+      add_bars(x=~stateName, y=~get(input$arrestType)) %>% 
+      layout(title = paste("Statewise Arrests for", input$arrestType),
              xaxis = list(title = "State Name"),
              yaxis = list(title = paste(input$var2, "Arrests per 100,000 residents") ))
   })
@@ -75,15 +75,15 @@ function(input,output,session){
   output$highest <- renderTable({
     # top states  max
     top = arrestData %>% 
-      select(stateName, input$varT) %>% 
-      arrange(desc(get(input$varT))) %>% 
+      select(stateName, input$arrestType) %>% 
+      arrange(desc(get(input$arrestType))) %>% 
       head()
   })
   # Table of 5 low states with lowest arrest
   output$lowest <- renderTable({
     low = arrestData %>% 
-      select(stateName, input$varT) %>% 
-      arrange(get(input$varT)) %>% 
+      select(stateName, input$arrestType) %>% 
+      arrange(get(input$arrestType)) %>% 
       head()
     
   
@@ -91,20 +91,20 @@ function(input,output,session){
   })
   # header of boxes
   output$headingT <- renderText(
-    paste(" First 6 top states with the highest rate of", input$varT)
+    paste(" First 6 top states with the highest rate of", input$arrestType)
   )
   output$headingL <- renderText(
-    paste(" First 6 top states with the Lowest rate of", input$varT)
+    paste(" First 6 top states with the Lowest rate of", input$arrestType)
   )
   
   # thematic map
   output$thematicmap <- renderPlot({
     joined %>% 
-      ggplot(aes(x=long, y=lat,fill=get(input$crimet) , group = group)) +
+      ggplot(aes(x=long, y=lat,fill=get(input$arrestType) , group = group)) +
       geom_polygon(color="black", size=0.4) +
-      scale_fill_gradient(low="#73A5C6", high="#001B3A", name = paste(input$crimet, "Arrest rate")) +
+      scale_fill_gradient(low="#73A5C6", high="#001B3A", name = paste(input$arrestType, "Arrest rate")) +
       theme_void() +
-      labs(title = paste("Thematic map of", input$crimet , " Arrests per 100,000 residents by state")) +
+      labs(title = paste("Thematic map of", input$arrestType , " Arrests per 100,000 residents by state")) +
       theme(
         plot.title = element_textbox_simple(face="bold", 
                                             size=18,
