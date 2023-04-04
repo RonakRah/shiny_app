@@ -24,19 +24,21 @@ arrestData %>% summary()
 arrestData %>% head()
 
 # row names to obj
-statesName =rownames(arrestData)
-
-# adding a col to the dataset as statesName
-arrestData=arrestData %>% mutate(stateName = statesName)
+# statesName =rownames(arrestData)
+# 
+# # adding a col to the dataset as statesName
+# arrestData=arrestData %>% mutate(stateName = statesName)
 
 #-------------------------| correlation | ------------------------
 
 state_in_map <- map_data("state")
-lowecase = arrestData %>% 
-  mutate(State = tolower(stateName))
+lowercase = arrestData %>% 
+  # Use row names and convert them to lowercase
+  mutate(State = tolower(rownames(arrestData)))
 
 ## Add the lat, long and other info needed 
-merged_data =right_join(lowecase, state_in_map,  by=c("State" = "region"))
+merged_data =right_join(lowercase, state_in_map,  by=c("State" = "region"))
+
 
 #  Create a dataframe out of  State Abreviations and center locations of each states 
 state_center = data.frame(abb = state.abb, stname=tolower(state.name), x=state.center$x, y=state.center$y)
@@ -48,11 +50,11 @@ joined = left_join(merged_data, state_center, by=c("State" = "stname"))
 
 # creating the crime selecttions
 crimes = arrestData %>%
-  select( - stateName) %>%
+  
   names()
 #creating the
 MAR = arrestData %>% 
-  select(-"stateName", -"UrbanPop") %>% 
+  select( -"UrbanPop") %>% 
   names()
 
 
