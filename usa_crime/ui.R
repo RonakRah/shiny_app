@@ -26,7 +26,7 @@ dashboardPage(
       conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'rel' ", selectInput(inputId = "varA" , label ="Select the X axis" , choices = crimes, selected = "Rape")), # fort scatter plot var A
       conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'rel' ", selectInput(inputId = "varB" , label ="Select the Y axis" , choices = crimes, selected = "Assault")), # fort scatter plot var B
       
-      conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'trends' || input.sidebar == 'Choroplet-Map'", selectInput(inputId = "sharedSelect", label = "Select the Arrest type", choices = MAR, selected = "Murder", width = 250)),
+      conditionalPanel("input.sidebar == 'Visual' && input.t2 == 'trends' || input.sidebar == 'Choroplet-Map'", selectInput(inputId = "arrestType", label = "Select the Arrest type", choices = MAR, selected = "Murder", width = 250)),
       
       # 3- item in menu
       menuItem(text = "Color Theme Map", tabName = "Choroplet-Map", icon = icon("map"))
